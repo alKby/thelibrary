@@ -38,7 +38,7 @@ public class Book {
 		return result;
 	}
 	public Publisher getPublisher() {return this.publisher;}
-	public long getId() { return this.id;}
+	public int getId() { return this.id;}
 
 //------------------------------------------SET------------------------------------------------------------
 

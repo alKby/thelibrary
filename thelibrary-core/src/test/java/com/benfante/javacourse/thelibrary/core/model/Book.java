@@ -3,8 +3,9 @@ package com.benfante.javacourse.thelibrary.core.model;
 //import java.util.Arrays;
 
 public class Book {
+	private bookElementsComparator bec;
 	private int ctAut= 0;
-	private long id ;
+	private int id ;
 	private String title;
 	private float price;
 	private Author[] authors = new Author [2];
@@ -70,7 +71,11 @@ public class Book {
 	
 	
 	public boolean equals(Book book) {
-		if(book.id == this.id && book.title.equals(this.title)) {
+		bec = new bookElementsComparator(book);
+		if(bec.compareID(this.id) && bec.compareTitle(this.title) && bec.compareAuthors(this.authors) && bec.comparePrice(this.price) && bec.comparePublisher(this.publisher)) {
+			return true;
+		}
+		/*if(book.id == this.id && book.title.equals(this.title)) {
 			for(int i = 0 ; i < this.authors.length ; i++) {
 				if(book.authors[i].equals(this.authors[i])) {
 					if(this.price == book.getPrice()) {
@@ -81,7 +86,7 @@ public class Book {
 				}
 					
 			}
-		}
+		}*/
 		return false;
 	}
 //------------------------------------------toSTRING------------------------------------------------------------

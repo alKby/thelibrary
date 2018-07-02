@@ -75,6 +75,7 @@ public class Book {
 		if(bec.compareID(this.id) && bec.compareTitle(this.title) && bec.compareAuthors(this.authors) && bec.comparePrice(this.price) && bec.comparePublisher(this.publisher)) {
 			return true;
 		}
+		return false;
 		/*if(book.id == this.id && book.title.equals(this.title)) {
 			for(int i = 0 ; i < this.authors.length ; i++) {
 				if(book.authors[i].equals(this.authors[i])) {
@@ -86,8 +87,8 @@ public class Book {
 				}
 					
 			}
-		}*/
-		return false;
+		}*/ 
+		
 	}
 //------------------------------------------toSTRING------------------------------------------------------------
 		

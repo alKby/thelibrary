@@ -6,10 +6,10 @@ public class Library {
 
 //----------------------------------------MAIN-------------------------------------------------
 	public static void main(String[] args) {
-		int sw = 0;
+		int sw = 0,sw2 = 0;;
 		Scanner in = new Scanner(System.in);
 		do {
-			System.out.println("\n\nINSERISCI UN NUMERO PER CONTINUARE:\n(1)Inserisci un libro\n(2)Rimuovi un libro\n(3)Stampa tutti i libri\n(0)ESCI");
+			System.out.println("\n\nINSERISCI UN NUMERO PER CONTINUARE:\n(1)Inserisci un libro\n(2)Rimuovi un libro\n(3)Stampa tutti i libri\n(4)Ricerca per singolo campo\n(0)ESCI");
 			sw = in.nextInt();
 			in.nextLine();
 			switch(sw) {
@@ -31,6 +31,17 @@ public class Library {
 					   }
 					   System.out.println("Nessun libro da stampare.");
 					   break;
+					   
+				case 4:System.out.println("Ricerca tramite:");
+					   System.out.println("(1)ID\n(Titolo\n(3)Autore/i\n(4)Prezzo\n(5)Publisher\n");
+					   sw2 = in.nextInt();
+					   in.nextLine();
+				
+					
+					
+					
+					
+					
 				case 0:
 					   System.out.println("CIAO!");
 					   break;

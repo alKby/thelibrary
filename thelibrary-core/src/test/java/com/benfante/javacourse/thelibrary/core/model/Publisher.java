@@ -17,6 +17,16 @@ public class Publisher {
 			this.name = name;
 		}
 	}
+	
+	
+	public boolean equals(Publisher publisher) {
+		if(publisher.name.equals(this.name)) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
 	@Override
 	public String toString() {
 		return "Publisher name: " + name + "";

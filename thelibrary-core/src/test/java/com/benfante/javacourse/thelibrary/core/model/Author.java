@@ -45,4 +45,14 @@ public class Author {
 		str = ("\nFirstName : "+this.firstName+" \t LastName: "+this.lastName);
 		return str;
 	}
+
+
+	public boolean equals(Author author) {
+		if(author.getFirstName().equals(this.firstName)) {
+			if(author.getLastName().equals(this.lastName)) {
+				return true;
+			}
+		}
+		return false;
+	}
 }

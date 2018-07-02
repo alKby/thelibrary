@@ -32,12 +32,24 @@ public class BookTest {
 		Author newAuthor = new Author("nome","cognome");
 		float newPrice = 1.23f;
 		book.setTitle(newTitle);
-		book.setAuthor(newAuthor);
+		book.addAuthor(newAuthor);
 		book.setPrice(newPrice);
 		newAut = book.getAuthor();
 		assertEquals(newTitle, book.getTitle());
 		assertArrayEquals(newAut, book.getAuthor());
 		assertEquals(newPrice, book.getPrice(), 0.1);
+	}
+	
+	@Test
+	public void testEquals() {
+		int id = 0;
+		String title = "A title";
+		Author author = new Author("nome","cognome");
+		float price = 1.23f;
+		Publisher publisher = new Publisher("test");
+		Book book = new Book(id, title, author, price , publisher);
+		Book book2 = new Book(id, title, author, price , publisher);
+		assertTrue(book.equals(book2));
 	}
 	
 }

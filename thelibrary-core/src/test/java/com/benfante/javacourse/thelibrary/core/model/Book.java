@@ -7,12 +7,12 @@ public class Book {
 	private long id ;
 	private String title;
 	private float price;
-	private Author[] author = new Author [10];
+	private Author[] authors = new Author [2];
 	private Publisher publisher;
 //---------------------------------------COSTRUTTORI-------------------------------------------
 	public Book(int id , String title , Author author ){
 		setTitle(title);
-		setAuthor(author);
+		addAuthor(author);
 		price = -1;
 		publisher = null;
 	}
@@ -31,12 +31,12 @@ public class Book {
 	public String getTitle() { return this.title;}
 	public float getPrice() {return this.price;}
 	public  Author[] getAuthor() {
-		Author[] result = new Author[this.author.length];
-		for(int i =0; i<this.author.length;i++) {
-			if(author[i] != null) {result[i] = this.author[i];}else {break;}}
+		Author[] result = new Author[this.authors.length];
+		for(int i =0; i<this.authors.length;i++) {
+			if(authors[i] != null) {result[i] = this.authors[i];}else {break;}}
 		return result;
 	}
-	public Publisher getpublisher() {return this.publisher;}
+	public Publisher getPublisher() {return this.publisher;}
 	public long getId() { return this.id;}
 
 //------------------------------------------SET------------------------------------------------------------
@@ -49,8 +49,8 @@ public class Book {
 		if(price>= 0) {this.price = price;} else {throw new IllegalArgumentException();}
 	}
 	
-	public void setAuthor(Author author) {
-		if(author != null) { this.author[ctAut] = author; ctAut++; } else { throw new IllegalArgumentException();}
+	public void addAuthor(Author author) {
+		if(author != null) { this.authors[ctAut] = author; ctAut++; } else { throw new IllegalArgumentException();}
 	}
 	
 	
@@ -66,20 +66,45 @@ public class Book {
 	}	
 	
 	
-//------------------------------------------TOSTRING------------------------------------------------------------
+//------------------------------------------EQUALS------------------------------------------------------------
+	
+	
+	public boolean equals(Book book) {
+		if(book.id == this.id && book.title.equals(this.title)) {
+			for(int i = 0 ; i < this.authors.length ; i++) {
+				if(book.authors[i].equals(this.authors[i])) {
+					if(this.price == book.getPrice()) {
+						if(this.publisher.equals(book.getPublisher())){
+							return true;
+						}
+					}
+				}
+					
+			}
+		}
+		return false;
+	}
+//------------------------------------------toSTRING------------------------------------------------------------
+		
 	@Override
 	public String toString() {
 		String ret="";
 		ret += ( "Book Id: " + id + "\nTitle: " + title + "\nPrice: " + price +"\nAuthors:"); 
-		for(int i =0;i<author.length;i++) {
-			if(author[i] != null) { 
-				ret += (author[i].toString());
+		for(int i =0;i<authors.length;i++) {
+			if(authors[i] != null) { 
+				ret += (authors[i].toString());
 			}
 		}
 		ret +=  "\n"+publisher.toString() ;
 		return ret;
 	}
 }
+		
+		
+		
+		
+
+
 	
 	
 	

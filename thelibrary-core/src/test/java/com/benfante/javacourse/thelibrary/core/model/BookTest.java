@@ -10,7 +10,7 @@ public class BookTest {
 
 	@Test
 	public void testBookConstruction() {
-		long id = 0;
+		int id = 0;
 		String title = "A title";
 		Author author = new Author("nome","cognome");
 		float price = 1.23f;
@@ -24,21 +24,17 @@ public class BookTest {
 
 	@Test
 	public void testBookSetters() {
-		long id = 0;
 		String title = "A title";
 		Author author = new Author("nome","cognome");
 		float price = 1.23f;
-		Book book = new Book(id, title, author, price);
-		long newId = 0;
+		Book book = new Book(-1, title, author, price);
 		String newTitle = "A title";
 		Author newAuthor = new Author("nome","cognome");
 		float newPrice = 1.23f;
-		book.setId(newId);
 		book.setTitle(newTitle);
 		book.setAuthor(newAuthor);
 		book.setPrice(newPrice);
 		newAut = book.getAuthor();
-		assertEquals(newId, book.getId());
 		assertEquals(newTitle, book.getTitle());
 		assertArrayEquals(newAut, book.getAuthor());
 		assertEquals(newPrice, book.getPrice(), 0.1);

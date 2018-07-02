@@ -123,8 +123,8 @@ public class Library {
 	       publisherN = in.nextLine();
 	       publisher = new Publisher(publisherN);
 	       b = new Book (id,title,author,price,publisher);
+	       in.close();
 	       return b;
-	       
 	}
 	
 //-------------------------------------------------------------------------------------------------

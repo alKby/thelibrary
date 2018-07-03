@@ -2,9 +2,8 @@ package com.benfante.javacourse.thelibrary.core.model;
 import java.util.*;
 import org.slf4j.*;
 
-import com.benfante.javacourse.thelibrary.core.model.bookElementsComparator;
-public class Library {
-	
+
+public class Library {	
 	private static final Logger log = LoggerFactory.getLogger(Book.class);
 	private  Book[] books = new Book[0];
 	static bookElementsComparator bec;

@@ -63,7 +63,7 @@ public class Library {
 		   					   	   Author[] author = new Author[1];
 		   					   	   author[0]= new Author(name,lastName);
 		   					       library.searchBooksByAuthor(author);
-		   					       		 
+		   					       break;
 					   		case 4:System.out.println("Inserisci il prezzo da cercare:\n");
 		   					       float price;
 		   					       price = in.nextFloat();	
@@ -78,12 +78,6 @@ public class Library {
 	   					           break;
 					   }
 					   break;
-				
-					
-					
-					
-					
-					
 				case 0:
 					   System.out.println("CIAO!");
 					   break;
@@ -91,10 +85,7 @@ public class Library {
 					   System.out.println("Inserimento non valido!");
 					   break;
 			}
-		   }while(sw != 0); 
-		 
-	
-	
+		   }while(sw != 0); 	
 		in.close();
 	}	
 

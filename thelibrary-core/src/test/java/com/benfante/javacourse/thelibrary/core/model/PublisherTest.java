@@ -1,7 +1,7 @@
 package com.benfante.javacourse.thelibrary.core.model;
 import org.junit.Test;
 import static org.junit.Assert.*;
-public class TestPublisher{
+public class PublisherTest{
 	
 	@Test
 	public void testGets() {

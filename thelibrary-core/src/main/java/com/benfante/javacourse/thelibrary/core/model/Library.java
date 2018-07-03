@@ -6,7 +6,7 @@ import org.slf4j.*;
 public class Library {	
 	private static final Logger log = LoggerFactory.getLogger(Book.class);
 	private  Book[] books = new Book[0];
-	static bookElementsComparator bec;
+	static BookCompare bec;
 	static Scanner in = new Scanner(System.in);
 
 //----------------------------------------MAIN-------------------------------------------------
@@ -188,7 +188,7 @@ public class Library {
 		Book[] book = new Book[books.length];
 		int ct = 0;
 		for(int i = 0 ; i < books.length ; i++) {
-			bec = new bookElementsComparator(books[i]);
+			bec = new BookCompare(books[i]);
 			if(bec.compareID(id)) {
 				book[ct] = books[i];
 				ct++;
@@ -208,7 +208,7 @@ public class Library {
 		Book[] book = new Book[books.length];
 		int ct = 0;
 		for(int i = 0 ; i < books.length ; i++) {
-			bec = new bookElementsComparator(books[i]);
+			bec = new BookCompare(books[i]);
 			if(bec.compareTitle(title)) {
 				book[ct] = books[i];
 				ct++;
@@ -227,7 +227,7 @@ public class Library {
 		Book[] book = new Book[books.length];
 		int ct = 0;
 		for(int i = 0 ; i < books.length ; i++) {
-			bec = new bookElementsComparator(books[i]);
+			bec = new BookCompare(books[i]);
 			if(bec.compareAuthors(author)) {
 				book[ct] = books[i];
 				ct++;
@@ -246,7 +246,7 @@ public class Library {
 		Book[] book = new Book[books.length];
 		int ct = 0;
 		for(int i = 0 ; i < books.length ; i++) {
-			bec = new bookElementsComparator(books[i]);
+			bec = new BookCompare(books[i]);
 			if(bec.comparePrice(price)) {
 				book[ct] = books[i];
 				ct++;
@@ -265,7 +265,7 @@ public class Library {
 		Book[] book = new Book[books.length];
 		int ct = 0;
 		for(int i = 0 ; i < books.length ; i++) {
-			bec = new bookElementsComparator(books[i]);
+			bec = new BookCompare(books[i]);
 			if(bec.comparePublisher(publisher)) {
 				book[ct] = books[i];
 				ct++;

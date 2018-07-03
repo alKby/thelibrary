@@ -1,7 +1,7 @@
 package com.benfante.javacourse.thelibrary.core.model;
-public class bookElementsComparator  {
+public class BookCompare  {
 	private Book book;
-	public bookElementsComparator(Book book) {
+	public BookCompare(Book book) {
 		this.book = book;
 	}
 	

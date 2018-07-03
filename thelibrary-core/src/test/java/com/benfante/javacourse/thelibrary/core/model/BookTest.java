@@ -46,7 +46,7 @@ public class BookTest {
 		String title = "A title";
 		Author author = new Author("nome","cognome");
 		float price = 1.23f;
-		Publisher publisher = new Publisher("test");
+		Publisher publisher = new Publisher(2 ,"test");
 		Book book = new Book(id, title, author, price , publisher);
 		Book book2 = new Book(id, title, author, price , publisher);
 		assertTrue(book.equals(book2));

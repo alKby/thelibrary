@@ -1,38 +1,37 @@
 package com.benfante.javacourse.thelibrary.core.model;
 
 public class Publisher {
-	public String name;
+	protected long id;
+	protected String name;
 	
-//-----------------------------------------COSTRUTTORE---------------------------------------------------------
-	public Publisher(String name) {
+	Publisher(long id , String name){
+		setId(id);
 		setName(name);
 	}
-//---------------------------------------------GET-----------------------------------------------------
-	public String getName() {return name;	}
-
-//---------------------------------------------SET----------------------------------------------------
-
-	public void setName(String name) {
-		if(name != "") {
-			this.name = name;
-		}
+	
+	
+	public long getId() { return this.id ; }
+	public String getName() { return this.name; }
+	
+	public void setId(long id) {
+		if (id > 0  ) { this.id = id; }
+	    else { throw new IllegalArgumentException(); }
 	}
 	
+	public void setName(String name) {
+		if(name != null) { this.name = name; }
+		else { throw new IllegalArgumentException(); }
+	}
 	
-	public boolean equals(Publisher publisher) {
-		if(publisher.name.equals(this.name)) {
-			return true;
-		}else {
-			return false;
-		}
+	public boolean equals( Publisher publisher) {
+		if(publisher.getName().equals(this.name) && publisher.getId() == this.id) { return true; }
+		else { return false; }
 	}
 	
 	@Override
 	public String toString() {
-		return "Publisher name: " + name + "";
+		return "Id: " + this.id + "\nName: "+ this.name;
 	}
 	
-//-----------------------------------------------TOSTRING--------------------------------------------------
-
-
 }
+	

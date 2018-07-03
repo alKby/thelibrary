@@ -74,7 +74,7 @@ public class Library {
 					   		case 5:System.out.println("Inserisci il publisher da cercare:\n");
 					   		       Publisher publisher;
 					   			   System.out.println("Inserisci publisher");
-					   			   publisher = new Publisher(in.nextLine());
+					   			   publisher = new Publisher(1, in.nextLine());
 	   					           library.searchBooksByPublisher(publisher);
 	   					           break;
 					   }
@@ -178,7 +178,7 @@ public class Library {
 	       in.nextLine();
 	       System.out.println("Inserici publisher:");
 	       publisherN = in.nextLine();
-	       publisher = new Publisher(publisherN);
+	       publisher = new Publisher(1,publisherN);
 	       b = new Book (id,title,author,price,publisher);
 	       return b;
 	       

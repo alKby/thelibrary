@@ -141,8 +141,7 @@ public class Library {
 		}
 		return book;
 	}
-	
-	
+
 	
 	public   Book[] searchBooksByPublisher(Publisher publisher) {
 		Book[] book = new Book[books.length];
@@ -160,8 +159,5 @@ public class Library {
 		}
 		return book;
 	}
-	
-
-	
-	
+		
 }

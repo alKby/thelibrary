@@ -9,9 +9,10 @@ public class AuthorTest {
 		Author author;
 		String firstName = "testName";
 		String lastName = "testLastName";
-		author = new Author(firstName, lastName);
+		author = new Author(1,firstName, lastName);
 		assertEquals(author.getFirstName() , firstName);
-		assertEquals(author.getLastName() , lastName);	
+		assertEquals(author.getLastName() , lastName);
+		assertEquals(author.getId() , 1);	
 	}
 	
 	@Test
@@ -21,8 +22,8 @@ public class AuthorTest {
 		String lastName = "testLastName";
 		String firstName2 = "testName2";
 		String lastName2 = "testLastName2";
-		author = new Author(firstName, lastName);
-		author.setAuthor(firstName2,lastName2);
+		author = new Author(1,firstName, lastName);
+		author.setAuthor(1,firstName2,lastName2);
 		assertEquals(author.getFirstName() , firstName2);
 		assertEquals(author.getLastName() , lastName2);	
 	}
@@ -32,7 +33,7 @@ public class AuthorTest {
 		Author author;
 		String firstName = "testName";
 		String lastName = "testLastName";
-		author = new Author(firstName, lastName);
+		author = new Author(1,firstName, lastName);
 		assertEquals(author.toString() , "\nFirstName: "+firstName+ "\tLastName: "+lastName);
 	}
 	
@@ -41,9 +42,9 @@ public class AuthorTest {
 		Author author;
 		String firstName = "testName";
 		String lastName = "testLastName";
-		author = new Author(firstName, lastName);
-		assertEquals(author.equals(new Author("testName","testLastName")) , true);
-		assertEquals(author.equals(new Author("testName2","testLastName2")) , false);
+		author = new Author(1,firstName, lastName);
+		assertEquals(author.equals(new Author(1,"testName","testLastName")) , true);
+		assertFalse(author.equals(new Author(2,"testName2","testLastName2")));
 	}
 
 }

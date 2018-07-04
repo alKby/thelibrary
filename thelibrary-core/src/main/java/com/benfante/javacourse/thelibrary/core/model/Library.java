@@ -61,7 +61,7 @@ public class Library {
 					   			   String lastName = in.nextLine();
 					   			   System.out.println();
 		   					   	   Author[] author = new Author[1];
-		   					   	   author[0]= new Author(name,lastName);
+		   					   	   author[0]= new Author((int)(Math.random()*5)+1,name,lastName);
 		   					       library.searchBooksByAuthor(author);
 		   					       break;
 					   		case 4:System.out.println("Inserisci il prezzo da cercare:\n");
@@ -162,7 +162,7 @@ public class Library {
 	       authorN = in.nextLine();
 	       System.out.println("Inserisci cognome autore");
 	       authorC = in.nextLine();
-	       author = new Author(authorN, authorC);
+	       author = new Author((int)(Math.random()*5)+1,authorN, authorC);
 	       System.out.println("Inserisci prezzo:");
 	       price = in.nextFloat();
 	       in.nextLine();

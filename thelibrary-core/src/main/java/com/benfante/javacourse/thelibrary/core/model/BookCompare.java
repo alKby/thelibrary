@@ -17,10 +17,13 @@ public class BookCompare  {
 	}
 	
 	public boolean compareAuthors(Author[] authors) {
+		boolean x = false;
+		if(authors.length != this.book.getAuthor().length) { return false; }
 		for(int i = 0 ; i < this.book.getAuthor().length ; i++) {
-			if(authors[i].equals(this.book.getAuthor()[i])) { return true; }
+			if(authors[i].equals(this.book.getAuthor()[i])) { x = true; }
+			else {x = false; break; }
 		}
-		return false;
+		return x;
 	}
 	
 	public boolean comparePrice(float price) {

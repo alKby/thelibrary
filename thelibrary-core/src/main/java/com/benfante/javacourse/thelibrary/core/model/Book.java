@@ -3,12 +3,12 @@ package com.benfante.javacourse.thelibrary.core.model;
 public class Book {
 	
 	private BookCompare bec;
-	private int ctAut= 0;
 	private int id ;
 	private String title;
 	private float price;
-	private Author[] authors = new Author [2];
+	private Author[] authors = new Author [0];
 	private Publisher publisher;
+	private BookCategory[] categories = new BookCategory[0];
 
 	public Book(int id , String title , Author author ){
 		setTitle(title);
@@ -30,6 +30,9 @@ public class Book {
 	}
 	
 	
+	public BookCategory[] getCategories() {
+		return categories;
+	}
 	
 	public String getTitle() { return this.title; }
 	
@@ -60,8 +63,21 @@ public class Book {
 	
 	//addAuthor == setAuthor!!!
 	public void addAuthor(Author author) {
-		if(author != null) { this.authors[ctAut] = author; ctAut++; }
-		else { throw new IllegalArgumentException(); }
+		Author[] aut;
+		/*if(author != null) { this.authors[ctAut] = author; ctAut++; }
+		else { throw new IllegalArgumentException(); }*/
+		if(author != null) {
+			aut = new Author[authors.length+1];
+			for(int i = 0 ; i< authors.length; i++) {
+				aut[i] = authors[i];
+			}
+			aut[aut.length-1] = author;
+			authors = new Author[aut.length];
+			for(int i = 0 ; i< authors.length; i++) {
+				authors[i] = aut[i];
+			}
+			
+		}
 	}
 	
 	
@@ -73,14 +89,52 @@ public class Book {
 	public void setId(int id) {
 		if(id >= 0) { this.id = id; }
 		else { throw new IllegalArgumentException(); }
-	}	
+	}
+	
+	public void setCategories(BookCategory[] categories) {
+		this.categories = new BookCategory[0];
+		for(int i = 0 ; i < categories.length ; i++) {
+			this.addCategory(categories[i]);
+		}
+	}
+	
+	public boolean hasAuthor(Author author) {
+		boolean result = false;
+		for (Author currAut : authors) {
+			if(currAut.hashCode() == author.hashCode() && currAut.equals(author))
+				result = true;
+		}
+		return result;
+	}
 	
 	public boolean equals(Book book) {
 		bec = new BookCompare(book);
-		if(bec.compareID(this.id) && bec.compareTitle(this.title) && bec.compareAuthors(this.authors) && bec.comparePrice(this.price) && bec.comparePublisher(this.publisher)) {
+		if(bec.compareID(this.id) && 
+				bec.compareTitle(this.title) && 
+				bec.compareAuthors(this.authors) &&
+				bec.comparePrice(this.price) &&
+				bec.comparePublisher(this.publisher)) {
 			return true;
 		}
 		return false;
+	}
+	
+	public void addCategory(BookCategory category) {
+		BookCategory[] bc = new BookCategory[this.categories.length+1];
+		if(category.equals(null)) {
+			throw new IllegalArgumentException();
+		}else {
+			for(int i = 0 ; i<this.categories.length; i++) {
+				if(this.categories[i] == category)
+					return;
+				bc[i] = this.categories[i];
+			}
+			bc[bc.length-1] = category;
+			this.categories = new BookCategory[bc.length];
+			for(int i = 0 ; i<bc.length; i++) {
+				this.categories[i] = bc[i];
+			}
+		}
 	}
 
 	

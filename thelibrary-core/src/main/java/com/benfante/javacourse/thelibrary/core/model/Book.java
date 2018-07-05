@@ -1,32 +1,34 @@
 package com.benfante.javacourse.thelibrary.core.model;
 
+import java.math.BigDecimal;
+
 public class Book {
 	
 	private BookCompare bec;
 	private int id ;
 	private String title;
-	private float price;
+	private BigDecimal price;
 	private Author[] authors = new Author [0];
 	private Publisher publisher;
 	private BookCategory[] categories = new BookCategory[0];
 
-	public Book(int id , String title , Author author ){
+	public Book(int id , String title , Author[] author ){
 		setTitle(title);
-		addAuthor(author);
-		price = -1;
+		addAuthors(author);
+		price = new BigDecimal(-1);
 		publisher = null;
+		setId(id);
 	}
 	
-	public Book(int id , String title , Author author , float price){
+	public Book(int id , String title , Author[] author , BigDecimal price){
 		this(id ,title , author);
 		setPrice(price);
 		publisher = null;
 	}
 	
-	public Book(int id,String title , Author author , float price , Publisher publisher ){
+	public Book(int id,String title , Author[] author , BigDecimal price , Publisher publisher ){
 		this( id ,title , author , price);
 		setPublisher(publisher);
-		setId(id);
 	}
 	
 	
@@ -36,7 +38,7 @@ public class Book {
 	
 	public String getTitle() { return this.title; }
 	
-	public float getPrice() { return this.price; }
+	public BigDecimal getPrice() { return this.price; }
 	
 	public  Author[] getAuthor() {
 		Author[] result = new Author[this.authors.length];
@@ -56,8 +58,8 @@ public class Book {
 		else {throw new IllegalArgumentException(); }
 	}
 	
-	public void setPrice(float price) {
-		if(price>= 0) { this.price = price; } 
+	public void setPrice(BigDecimal price) {
+		if(price.compareTo(BigDecimal.valueOf(0))> 0) { this.price = price; } 
 		else {throw new IllegalArgumentException(); }
 	}
 	
@@ -77,6 +79,18 @@ public class Book {
 				authors[i] = aut[i];
 			}
 			
+		}
+	}
+	
+	public void addAuthors(Author[] authors) {
+		for(int i = 0 ; i<authors.length ; i++) {
+			addAuthor(authors[i]);
+		}
+	}
+	
+	public void addPublisher(Publisher publisher) {
+		if(this.publisher == null && publisher != null) {
+			this.publisher=publisher;
 		}
 	}
 	
@@ -121,7 +135,7 @@ public class Book {
 	
 	public void addCategory(BookCategory category) {
 		BookCategory[] bc = new BookCategory[this.categories.length+1];
-		if(category.equals(null)) {
+		if(category == null) {
 			throw new IllegalArgumentException();
 		}else {
 			for(int i = 0 ; i<this.categories.length; i++) {
@@ -130,10 +144,7 @@ public class Book {
 				bc[i] = this.categories[i];
 			}
 			bc[bc.length-1] = category;
-			this.categories = new BookCategory[bc.length];
-			for(int i = 0 ; i<bc.length; i++) {
-				this.categories[i] = bc[i];
-			}
+			this.categories = bc;
 		}
 	}
 
@@ -144,6 +155,11 @@ public class Book {
 		ret += ( "Book Id: " + id + "\nTitle: " + title + "\nPrice: " + price +"\nAuthors:"); 
 		for(int i =0;i<authors.length;i++) {
 			if(authors[i] != null) { ret += (authors[i].toString()); }
+			else { break; }
+		}
+		ret += "\nCategories: \n" ;
+		for(int i = 0 ; i<categories.length ; i++) {
+			if(categories[i] != null) { ret += categories[i].toString()+"\n"; }
 			else { break; }
 		}
 		ret +=  "\n"+publisher.toString() ;

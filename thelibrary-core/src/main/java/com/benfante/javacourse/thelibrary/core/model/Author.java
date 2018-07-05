@@ -31,7 +31,7 @@ public class Author {
 	 
 
 	public String toString() {
-		 return ("\nFirstName: "+this.firstName+"\tLastName: "+this.lastName);
+		 return ("\nFirstName: "+this.firstName+"\nLastName: "+this.lastName+"\n");
 	}
 	
 	@Override

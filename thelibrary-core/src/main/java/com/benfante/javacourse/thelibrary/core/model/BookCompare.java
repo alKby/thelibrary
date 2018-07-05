@@ -1,4 +1,7 @@
 package com.benfante.javacourse.thelibrary.core.model;
+
+import java.math.BigDecimal;
+
 public class BookCompare  {
 	private Book book;
 	public BookCompare(Book book) {
@@ -26,8 +29,8 @@ public class BookCompare  {
 		return x;
 	}
 	
-	public boolean comparePrice(float price) {
-		if(this.book.getPrice() == price) { return true; }
+	public boolean comparePrice(BigDecimal price) {
+		if(this.book.getPrice().equals(price)) { return true; }
 		return false;
 	}
 	

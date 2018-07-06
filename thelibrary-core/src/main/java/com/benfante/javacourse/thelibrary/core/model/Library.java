@@ -1,31 +1,45 @@
 package com.benfante.javacourse.thelibrary.core.model;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.math.BigDecimal;
 import java.util.*;
 //import org.slf4j.*;
 
-
 public class Library {	
+	private static File libraryF = null;
 	//private static final Logger log = LoggerFactory.getLogger(Book.class);
-	private  Book[] books = new Book[0];
+	private static Book[] books = new Book[0];
 	static BookCompare bec;
 	static Library lib = new Library();
-	
 	public Library() {
 	}
 	
-	public static void main(String[] args){
-		
-		inputDaFile();
-		//aggiuntaDaTastiera();
-		
+	public static void main(String[] args) throws IOException, ClassNotFoundException{
+		libraryF = new File(lib.getClass().getResource("/books.dat").getFile());
+		if(!libraryF.exists()) {
+			libraryF.createNewFile();
+		}
+		libraryF.createNewFile();
+		aggiuntaDaTastiera();
+		storeArchive();
+		loadArchive();
+		System.out.println(lib.toString());
 		
 	}
 	
+	
+	public static void storeArchive() throws IOException{
+		ObjectOutputStream os = new ObjectOutputStream( new BufferedOutputStream(new FileOutputStream(libraryF)));
+			os.writeObject(books);
+		os.close();
+	}
+	
+	public static void loadArchive() throws IOException, ClassNotFoundException{	
+		ObjectInputStream is = new ObjectInputStream( new BufferedInputStream(new FileInputStream(libraryF)));
+		books = (Book[]) is.readObject();
+		is.close();
+	}
+		
+
 	public  static void inputDaFile(){
 		int idB = 0 , idA = 0 , idP = 0, cti=0;
 		BigDecimal price = BigDecimal.valueOf(0);
@@ -41,7 +55,6 @@ public class Library {
 				scan.nextLine();
 				System.out.print("\nInserimento titolo libro");
 				title = scan.nextLine();
-				System.out.println(title);
 				System.out.print("\nInserimento prezzo libro");
 				price = scan.nextBigDecimal();
 				scan.nextLine();
@@ -82,12 +95,11 @@ public class Library {
 			}
 		catch(IOException ioe){
 			
-		}finally{
+		}finally {
 			System.out.println(lib.toString()+"\n");
 		}
-	}
-			
-	
+}
+
 	
 	public static void aggiuntaDaTastiera() {
 		int idB = 0 , idA = 0 , idP = 0, cti;
@@ -203,7 +215,6 @@ public class Library {
 		}
 	}
 
-	
 	public   Book[] searchBooksById(int id) {
 		Book[] book = new Book[books.length];
 		int ct = 0;
@@ -222,7 +233,6 @@ public class Library {
 		return book;
 	}
 	
-	
 	public   Book[] searchBooksByTitle(String title) {
 		Book[] book = new Book[books.length];
 		int ct = 0;
@@ -239,7 +249,6 @@ public class Library {
 		}
 		return book;
 	}
-	
 	
 	public   Book[] searchBooksByAuthor(Author[] author) {
 		Book[] book = new Book[books.length];
@@ -258,7 +267,6 @@ public class Library {
 		return book;
 	}
 	
-		
 	public   Book[] searchBooksByPrice(BigDecimal price) {
 		Book[] book = new Book[books.length];
 		int ct = 0;
@@ -276,7 +284,6 @@ public class Library {
 		return book;
 	}
 
-	
 	public   Book[] searchBooksByPublisher(Publisher publisher) {
 		Book[] book = new Book[books.length];
 		int ct = 0;

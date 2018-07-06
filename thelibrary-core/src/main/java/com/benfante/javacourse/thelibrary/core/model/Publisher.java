@@ -1,6 +1,12 @@
 package com.benfante.javacourse.thelibrary.core.model;
 
-public class Publisher {
+import java.io.Serializable;
+
+public class Publisher implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	protected long id;
 	protected String name;
 	

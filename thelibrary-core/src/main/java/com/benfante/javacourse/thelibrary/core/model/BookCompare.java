@@ -1,8 +1,13 @@
 package com.benfante.javacourse.thelibrary.core.model;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
-public class BookCompare  {
+public class BookCompare  implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Book book;
 	public BookCompare(Book book) {
 		this.book = book;

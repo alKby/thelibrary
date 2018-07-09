@@ -1,5 +1,5 @@
 package com.benfante.javacourse.thelibrary.core.model;
-
+import java.util.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
@@ -13,11 +13,11 @@ public class Book implements Serializable{
 	private int id ;
 	private String title;
 	private BigDecimal price;
-	private Author[] authors = new Author [0];
+	private List <Author> authors = new LinkedList<>();
 	private Publisher publisher;
 	private BookCategory[] categories = new BookCategory[0];
 
-	public Book(int id , String title , Author[] author ){
+	public Book(int id , String title , List <Author> author ){
 		setTitle(title);
 		addAuthors(author);
 		price = new BigDecimal(-1);
@@ -25,13 +25,13 @@ public class Book implements Serializable{
 		setId(id);
 	}
 	
-	public Book(int id , String title , Author[] author , BigDecimal price){
+	public Book(int id , String title , List <Author> author  , BigDecimal price){
 		this(id ,title , author);
 		setPrice(price);
 		publisher = null;
 	}
 	
-	public Book(int id,String title , Author[] author , BigDecimal price , Publisher publisher ){
+	public Book(int id,String title , List <Author> author  , BigDecimal price , Publisher publisher ){
 		this( id ,title , author , price);
 		setPublisher(publisher);
 	}
@@ -45,13 +45,15 @@ public class Book implements Serializable{
 	
 	public BigDecimal getPrice() { return this.price; }
 	
-	public  Author[] getAuthor() {
-		Author[] result = new Author[this.authors.length];
+	public  List <Author> getAuthor() {
+		return this.authors;
+		
+		/*Author[] result = new Author[this.authors.length];
 		for(int i =0; i<this.authors.length;i++) { 
 			if(authors[i] != null) {result[i] = this.authors[i];}
 			else { break; }
 		}
-		return result;
+		return result;*/
 	}
 
 	public Publisher getPublisher() {return this.publisher;}
@@ -70,9 +72,13 @@ public class Book implements Serializable{
 	
 	//addAuthor == setAuthor!!!
 	public void addAuthor(Author author) {
+		if (author != null) authors.add(author);
+		else System.out.println("Autore inserito non valido!");
+		
+		/*
 		Author[] aut;
-		/*if(author != null) { this.authors[ctAut] = author; ctAut++; }
-		else { throw new IllegalArgumentException(); }*/
+		if(author != null) { this.authors[ctAut] = author; ctAut++; }
+		else { throw new IllegalArgumentException(); }
 		if(author != null) {
 			aut = new Author[authors.length+1];
 			for(int i = 0 ; i< authors.length; i++) {
@@ -85,12 +91,11 @@ public class Book implements Serializable{
 			}
 			
 		}
+		*/
 	}
 	
-	public void addAuthors(Author[] authors) {
-		for(int i = 0 ; i<authors.length ; i++) {
-			addAuthor(authors[i]);
-		}
+	public void addAuthors(List <Author>authors) {
+		this.authors.addAll(authors);
 	}
 	
 	public void addPublisher(Publisher publisher) {
@@ -158,9 +163,8 @@ public class Book implements Serializable{
 	public String toString() {
 		String ret="";
 		ret += ( "Book Id: " + id + "\nTitle: " + title + "\nPrice: " + price +"\nAuthors:"); 
-		for(int i =0;i<authors.length;i++) {
-			if(authors[i] != null) { ret += (authors[i].toString()); }
-			else { break; }
+		for(Author author : authors) {
+			ret += author.toString();
 		}
 		ret += "\nCategories: \n" ;
 		for(int i = 0 ; i<categories.length ; i++) {

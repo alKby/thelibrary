@@ -7,7 +7,7 @@ import java.util.*;
 public class Library {	
 	private static File libraryF = null;
 	//private static final Logger log = LoggerFactory.getLogger(Book.class);
-	private static Book[] books = new Book[0];
+	private static Collection <Book> books = new LinkedList<> ();
 	static BookCompare bec;
 	static Library lib = new Library();
 	public Library() {
@@ -33,9 +33,21 @@ public class Library {
 		os.close();
 	}
 	
-	public static void loadArchive() throws IOException, ClassNotFoundException{	
+	@SuppressWarnings("unchecked")
+	public static void loadArchive() throws IOException, ClassNotFoundException , FileNotFoundException{	
 		ObjectInputStream is = new ObjectInputStream( new BufferedInputStream(new FileInputStream(libraryF)));
-		books = (Book[]) is.readObject();
+		books.addAll((Collection<Book>)is.readObject());
+		is.close();
+	}
+	
+	//Load da qualsiasi cosa
+	public static void loadArchive(InputStream isx) throws IOException, ClassNotFoundException , FileNotFoundException{	
+		ObjectInputStream is = new ObjectInputStream( new BufferedInputStream(isx));
+		Collection <Book> temp = new LinkedList<>();
+		temp.add((Book) is.readObject()); 
+		if(temp != null){
+			books = temp;
+		}
 		is.close();
 	}
 		
@@ -58,7 +70,8 @@ public class Library {
 				System.out.print("\nInserimento prezzo libro");
 				price = scan.nextBigDecimal();
 				scan.nextLine();
-				Book book = new Book(idB,title,new Author[0],price);
+				List <Author> authors = new LinkedList<>();
+				Book book = new Book(idB,title,authors,price);
 				do{
 					System.out.print("\nInserimento id autore");
 					idA = scan.nextInt();
@@ -118,7 +131,8 @@ public class Library {
 				title = bf.readLine();
 				System.out.print("\nInserisci il prezzo del libro: ");
 				price = BigDecimal.valueOf(Double.parseDouble(bf.readLine()));
-				Book book = new Book(idB,title,new Author[0],price);
+				List <Author> authors = new LinkedList<>();
+				Book book = new Book(idB,title,authors ,price);
 				do{
 					System.out.print("\nInserisci id autore: ");
 					idA = Integer.parseInt(bf.readLine());
@@ -136,6 +150,7 @@ public class Library {
 					for(int i = 0 ; i <BookCategory.values().length; i++) {
 						System.out.print("\n("+(i+1)+")"+BookCategory.values()[i]);
 					}
+					System.out.println("\n(X)Exit.");
 					System.out.println();
 					ct = bf.readLine();
 					if(ct.equals("x")) break;
@@ -161,8 +176,14 @@ public class Library {
 	}
 
 	public  void addBook(Book book) {
+		
+		
+		books.add(book);
+		
+		
+		
 		//log.debug("\nAdding book with:\ntitle = {}\nid = {}",book.getTitle() , book.getId() );
-		Book[] copy;
+		/*Book[] copy;
 		if(books.length <= 0) {
 			books = new Book [1];
 			books[0] = book;
@@ -179,11 +200,14 @@ public class Library {
 				}
 				
 			}
-		}
+		}*/
 		
 	}
 
 	public  void removeBook(Book book) {
+		
+		books.remove(book);
+		/*
 		boolean removed = false;
 		Book[] copy = null;
 		for(int i = 0 ; i < books.length; i++) {
@@ -213,97 +237,44 @@ public class Library {
 		if(!removed) {
 			System.out.println("Not Found!");
 		}
+		*/
 	}
 
-	public   Book[] searchBooksById(int id) {
-		Book[] book = new Book[books.length];
-		int ct = 0;
-		for(int i = 0 ; i < books.length ; i++) {
-			bec = new BookCompare(books[i]);
-			if(bec.compareID(id)) {
-				book[ct] = books[i];
-				ct++;
+	public   Collection <Book> searchBooksById(int id) {
+		Collection <Book> res = new LinkedList <>();
+		for(Book b : books) {
+			if(b.getId()==id) {
+				res.add(b);
 			}
 		}
-		System.out.println("Libri con lo stesso id trovati : " +ct +"\n");
-		for(Book i : book) {
-			System.out.println(i);
-		}
-		System.out.println();
-		return book;
+		return res;
+				
 	}
 	
-	public   Book[] searchBooksByTitle(String title) {
-		Book[] book = new Book[books.length];
-		int ct = 0;
-		for(int i = 0 ; i < books.length ; i++) {
-			bec = new BookCompare(books[i]);
-			if(bec.compareTitle(title)) {
-				book[ct] = books[i];
-				ct++;
+	public   Collection <Book> searchBooksByTitle(String title) {
+		Collection <Book> res = new LinkedList <>();
+		for(Book b : books) {
+			if(title.equals(b.getTitle())) {
+				res.add(b);
 			}
 		}
-		System.out.println("Libri con lo stesso titolo trovati : " +ct +"\n");
-		for(Book i : book) {
-			System.out.println(i);
-		}
-		return book;
+		return res;
 	}
 	
-	public   Book[] searchBooksByAuthor(Author[] author) {
-		Book[] book = new Book[books.length];
-		int ct = 0;
-		for(int i = 0 ; i < books.length ; i++) {
-			bec = new BookCompare(books[i]);
-			if(bec.compareAuthors(author)) {
-				book[ct] = books[i];
-				ct++;
+	public   Collection <Book> searchBooksByAuthor(List <Author> author) {
+		Collection <Book> res = new LinkedList <>();
+		for(Book b : books) {
+			if(author.equals(b.getAuthor())) {
+				res.add(b);
 			}
 		}
-		System.out.println("Libri con lo stesso autore trovati : " +ct +"\n");
-		for(Book i : book) {
-			System.out.println(i);
-		}
-		return book;
+		return res;
 	}
 	
-	public   Book[] searchBooksByPrice(BigDecimal price) {
-		Book[] book = new Book[books.length];
-		int ct = 0;
-		for(int i = 0 ; i < books.length ; i++) {
-			bec = new BookCompare(books[i]);
-			if(bec.comparePrice(price)) {
-				book[ct] = books[i];
-				ct++;
-			}
-		}
-		System.out.println("Libri con lo stesso prezzo trovati : " +ct +"\n");
-		for(Book i : book) {
-			System.out.println(i);
-		}
-		return book;
-	}
-
-	public   Book[] searchBooksByPublisher(Publisher publisher) {
-		Book[] book = new Book[books.length];
-		int ct = 0;
-		for(int i = 0 ; i < books.length ; i++) {
-			bec = new BookCompare(books[i]);
-			if(bec.comparePublisher(publisher)) {
-				book[ct] = books[i];
-				ct++;
-			}
-		}
-		System.out.println("Libri con lo stesso publisher trovati : " +ct +"\n");
-		for(Book i : book) {
-			System.out.println(i);
-		}
-		return book;
-	}
 	
 	public String toString() {
 		String srt = "\n------------------------------------\n";
-		for(Book b : this.books) {
+		for(Book b : books) {
 			srt +=  b.toString();
 		}
 		return srt;

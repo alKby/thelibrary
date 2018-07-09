@@ -2,6 +2,7 @@ package com.benfante.javacourse.thelibrary.core.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.List;
 
 public class BookCompare  implements Serializable{
 	/**
@@ -24,13 +25,16 @@ public class BookCompare  implements Serializable{
 		return false;
 	}
 	
-	public boolean compareAuthors(Author[] authors) {
+	public boolean compareAuthors(List<Author> authors) {
 		boolean x = false;
-		if(authors.length != this.book.getAuthor().length) { return false; }
+		
+		if( authors.equals(book.getAuthor()))
+			x = true;
+		/*if(authors.length != this.book.getAuthor().length) { return false; }
 		for(int i = 0 ; i < this.book.getAuthor().length ; i++) {
 			if(authors[i].equals(this.book.getAuthor()[i])) { x = true; }
 			else {x = false; break; }
-		}
+		}*/
 		return x;
 	}
 	

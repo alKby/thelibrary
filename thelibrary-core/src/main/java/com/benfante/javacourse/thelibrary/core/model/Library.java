@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.*;
 
 public class Library {	
+	
 	private static File libraryF = null;
 	//private static final Logger log = LoggerFactory.getLogger(Book.class);
 	private static List <Book> books = new LinkedList<> ();

@@ -34,7 +34,7 @@ public class AuthorTest {
 		String firstName = "testName";
 		String lastName = "testLastName";
 		author = new Author(1,firstName, lastName);
-		assertEquals(author.toString() , "\nFirstName: "+firstName+ "\tLastName: "+lastName);
+		assertEquals(author.toString() ,"\nFirstName: "+firstName+"\nLastName: "+lastName+"\n");
 	}
 	
 	@Test

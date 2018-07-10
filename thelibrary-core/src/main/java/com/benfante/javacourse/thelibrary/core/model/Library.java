@@ -2,19 +2,21 @@ package com.benfante.javacourse.thelibrary.core.model;
 import java.io.*;
 import java.math.BigDecimal;
 import java.util.*;
-//import org.slf4j.*;
 
 public class Library {	
 	private static File libraryF = null;
 	//private static final Logger log = LoggerFactory.getLogger(Book.class);
-	private static Collection <Book> books = new LinkedList<> ();
+	private static List <Book> books = new LinkedList<> ();
 	static BookCompare bec;
+	static BookTitleComparator btc = new BookTitleComparator();
+	static BookIsbnComparator bic = new BookIsbnComparator();
 	static Library lib = new Library();
 	public Library() {
 	}
 	
 	public static void main(String[] args) throws IOException, ClassNotFoundException{
 		libraryF = new File(lib.getClass().getResource("/books.dat").getFile());
+		
 		if(!libraryF.exists()) {
 			libraryF.createNewFile();
 		}
@@ -25,7 +27,6 @@ public class Library {
 		System.out.println(lib.toString());
 		
 	}
-	
 	
 	public static void storeArchive() throws IOException{
 		ObjectOutputStream os = new ObjectOutputStream( new BufferedOutputStream(new FileOutputStream(libraryF)));
@@ -40,10 +41,9 @@ public class Library {
 		is.close();
 	}
 	
-	//Load da qualsiasi cosa
 	public static void loadArchive(InputStream isx) throws IOException, ClassNotFoundException , FileNotFoundException{	
 		ObjectInputStream is = new ObjectInputStream( new BufferedInputStream(isx));
-		Collection <Book> temp = new LinkedList<>();
+		List <Book> temp = new LinkedList<>();
 		temp.add((Book) is.readObject()); 
 		if(temp != null){
 			books = temp;
@@ -51,7 +51,6 @@ public class Library {
 		is.close();
 	}
 		
-
 	public  static void inputDaFile(){
 		int idB = 0 , idA = 0 , idP = 0, cti=0;
 		BigDecimal price = BigDecimal.valueOf(0);
@@ -112,7 +111,6 @@ public class Library {
 			System.out.println(lib.toString()+"\n");
 		}
 }
-
 	
 	public static void aggiuntaDaTastiera() {
 		int idB = 0 , idA = 0 , idP = 0, cti;
@@ -165,6 +163,12 @@ public class Library {
 				publisher = new Publisher(idP , nameP);
 				book.addPublisher(publisher);
 				lib.addBook(book);
+				/*
+				 * books.sort(btc);
+				 * books.sort(btc.reversed());
+				 * books.sort(bic);
+				 * books.sort(bic.reversed());
+				*/
 			}
 			
 		}catch(IOException ioe){
@@ -270,7 +274,6 @@ public class Library {
 		}
 		return res;
 	}
-	
 	
 	public String toString() {
 		String srt = "\n------------------------------------\n";

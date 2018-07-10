@@ -3,7 +3,7 @@ import java.util.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-public class Book implements Serializable{
+public class Book implements Serializable , Comparable<Book>{
 	
 	/**
 	 * 
@@ -11,6 +11,7 @@ public class Book implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private BookCompare bec;
 	private int id ;
+	private String ISBN = "";
 	private String title;
 	private BigDecimal price;
 	private List <Author> authors = new LinkedList<>();
@@ -41,6 +42,10 @@ public class Book implements Serializable{
 		return categories;
 	}
 	
+	public String getISBN() {
+		return ISBN;
+	}
+	
 	public String getTitle() { return this.title; }
 	
 	public BigDecimal getPrice() { return this.price; }
@@ -59,6 +64,12 @@ public class Book implements Serializable{
 	public Publisher getPublisher() {return this.publisher;}
 	
 	public int getId() { return this.id;}
+	
+	public void setISBN(String ISBN) {
+		if(ISBN != null) {
+			this.ISBN = ISBN;
+		}
+	}
 
 	public void setTitle(String title) {
 		if(title!= "" || title == null) { this.title= title; } 
@@ -173,6 +184,17 @@ public class Book implements Serializable{
 		}
 		ret +=  "\n"+publisher.toString() ;
 		return ret;
+	}
+
+	@Override
+	public int compareTo(Book o) {
+		if(this.id == (o.getId()))
+		return 0;
+		
+		if(this.id > (o.getId()))
+		return 1;
+		
+		return-1;
 	}
 }
 		

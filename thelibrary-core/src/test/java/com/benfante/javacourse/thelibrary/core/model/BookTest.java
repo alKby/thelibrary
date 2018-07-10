@@ -1,7 +1,7 @@
 package com.benfante.javacourse.thelibrary.core.model;
-
+import java.util.*;
 import static org.junit.Assert.*;
-//import java.math.*;
+import java.math.*;
 //import java.lang.reflect.Array;
 import java.util.Arrays;
 
@@ -9,55 +9,60 @@ import java.util.Arrays;
 import org.junit.Test;
 
 public class BookTest {
-	private Author[] aut,newAut;
 
 	@Test
 	public void testBookGets() {
 		int id = 0;
 		String title = "A title";
-		Author author = new Author(1,"nome","cognome");
-		float price = 1.23f;
-		Book book = new Book(id, title, author, price);
-		aut = book.getAuthor();	
+		List <Author> author = new LinkedList<>();
+		Publisher publisher = new Publisher (1, "nome");
+		author.add(new Author(1,"name","lastName"));
+		BigDecimal price = new BigDecimal("12");
+		Book book = new Book(id, title, author, price , publisher);
+		List <Author> aut = new LinkedList<>();
+		aut = book.getAuthor();
 		assertEquals(id, book.getId());
 		assertEquals(title, book.getTitle());
-		assertArrayEquals(aut, book.getAuthor());
-		assertEquals(price, book.getPrice(), 0.1);
+		assertEquals(aut, book.getAuthor());
+		assertEquals(price, book.getPrice());
 	}
 
 	@Test
 	public void testBookSetters() {
 		String title = "A title";
 		int id = 1,id2 = 2;
+		List <Author> author = new LinkedList<>();
 		Publisher publisher = new Publisher (1, "nome");
-		Author author = new Author(id,"nome","cognome");
-		float price = 1.23f;
+		author.add(new Author(1,"name","lastName"));
+		BigDecimal price = new BigDecimal("12");
 		Book book = new Book(1, title, author, price,publisher);
 		String newTitle = "A title";
 		Author newAuthor = new Author(id,"nome","cognome");
-		float newPrice = 1.23f;
+		List <Author> authorx = new LinkedList<>();
+		authorx.add(newAuthor);
+		BigDecimal newPrice = new BigDecimal("17.2");
 		book.setId(id2);
 		book.setTitle(newTitle);
 		book.addAuthor(newAuthor);
 		book.setPrice(newPrice);
 		Publisher pub2 = new Publisher(2,"nome2");
 		book.setPublisher(pub2);
-		newAut = book.getAuthor();
+		authorx = book.getAuthor();
 		assertEquals(id2, book.getId());
 		assertEquals(newTitle, book.getTitle());
-		assertArrayEquals(newAut, book.getAuthor());
-		assertEquals(newPrice, book.getPrice(), 0.1);
+		assertEquals(authorx, book.getAuthor());
+		assertEquals(newPrice, book.getPrice());
 		assertEquals(pub2, book.getPublisher());
 	}
 	
 	@Test
 	public void testAsAuthor() {;
-		int id = 0;
 		String title = "A title";
-		Author author = new Author(1,"nome","cognome");
-		float price = 1.23f;
-		Publisher publisher = new Publisher(2 ,"test");
-		Book book = new Book(id, title, author, price , publisher);
+		List <Author> author = new LinkedList<>();
+		Publisher publisher = new Publisher (1, "nome");
+		author.add(new Author(1,"name","lastName"));
+		BigDecimal price = new BigDecimal("12");
+		Book book = new Book(1, title, author, price,publisher);
 		Author a2 = new Author(2,"name","lastname");
 		book.addAuthor(a2);
 		assertTrue(book.hasAuthor(a2));
@@ -66,12 +71,12 @@ public class BookTest {
 	
 	@Test
 	public void testAddAuthor() {;
-		int id = 0;
 		String title = "A title";
-		Author author = new Author(1,"nome","cognome");
-		float price = 1.23f;
-		Publisher publisher = new Publisher(2 ,"test");
-		Book book = new Book(id, title, author, price , publisher);
+		List <Author> author = new LinkedList<>();
+		Publisher publisher = new Publisher (1, "nome");
+		author.add(new Author(1,"name","lastName"));
+		BigDecimal price = new BigDecimal("12");
+		Book book = new Book(1, title, author, price,publisher);
 		Author a2 = new Author(2,"name","lastname");
 		book.addAuthor(a2);
 		assertTrue(book.hasAuthor(a2));
@@ -82,22 +87,23 @@ public class BookTest {
 	public void testEquals() {
 		int id = 0;
 		String title = "A title";
-		Author author = new Author(1,"nome","cognome");
-		float price = 1.23f;
-		Publisher publisher = new Publisher(2 ,"test");
-		Book book = new Book(id, title, author, price , publisher);
+		List <Author> author = new LinkedList<>();
+		author.add(new Author(1,"name","lastName"));
+		BigDecimal price = new BigDecimal("12");
+		Publisher publisher = new Publisher(2 ,"test");		
+		Book book = new Book(id, title, author, price,publisher);
 		Book book2 = new Book(id, title, author, price , publisher);
 		assertTrue(book.equals(book2));
 	}
 
 	@Test
 	public void testSetCategories(){
-		int id = 0;
 		String title = "A title";
-		Author author = new Author(1,"nome","cognome");
-		float price = 1.23f;
-		Publisher publisher = new Publisher(1, "name");
-		Book book = new Book(id, title, author, price , publisher);
+		List <Author> author = new LinkedList<>();
+		Publisher publisher = new Publisher (1, "nome");
+		author.add(new Author(1,"name","lastName"));
+		BigDecimal price = new BigDecimal("12");
+		Book book = new Book(1, title, author, price,publisher);
 		BookCategory[] bc = new BookCategory[2];
 		bc[0] = BookCategory.ARTS_AND_POTHOGRAPY;
 		bc[1] = BookCategory.COMPUTERS_AND_TECNOLOGY;
@@ -108,12 +114,12 @@ public class BookTest {
 	
 	@Test
 	public void testAddCategory(){
-		int id = 0;
 		String title = "A title";
-		Author author = new Author(1,"nome","cognome");
-		float price = 1.23f;
-		Publisher publisher = new Publisher(1, "name");
-		Book book = new Book(id, title, author, price , publisher);
+		List <Author> author = new LinkedList<>();
+		Publisher publisher = new Publisher (1, "nome");
+		author.add(new Author(1,"name","lastName"));
+		BigDecimal price = new BigDecimal("12");
+		Book book = new Book(1, title, author, price,publisher);
 		BookCategory bc;
 		bc = BookCategory.ARTS_AND_POTHOGRAPY;
 		book.addCategory(bc);
@@ -125,12 +131,12 @@ public class BookTest {
 	
 	@Test
 	public void testGetCategories(){
-		int id = 0;
 		String title = "A title";
-		Author author = new Author(1,"nome","cognome");
-		float price = 1.23f;
-		Publisher publisher = new Publisher(1, "name");
-		Book book = new Book(id, title, author, price , publisher);
+		List <Author> author = new LinkedList<>();
+		Publisher publisher = new Publisher (1, "nome");
+		author.add(new Author(1,"name","lastName"));
+		BigDecimal price = new BigDecimal("12");
+		Book book = new Book(1, title, author, price,publisher);
 		BookCategory bc[] = new BookCategory[2];
 		bc[0] = BookCategory.ARTS_AND_POTHOGRAPY;
 		bc[1] = BookCategory.COMPUTERS_AND_TECNOLOGY;
@@ -144,19 +150,24 @@ public class BookTest {
 	
 	@Test
 	public void testToString() {
-		int id = 0;
-		String title = "A title", test = "";
-		Author author = new Author(1,"nome","cognome");
-		float price = 1.23f;
-		Publisher publisher = new Publisher(1, "name");
-		Book book = new Book(id, title, author, price , publisher);
-		test += ( "Book Id: " + book.getId() + "\nTitle: " + book.getTitle() + "\nPrice: " + book.getPrice() +"\nAuthors:"); 
-		for(int i =0;i<book.getAuthor().length;i++) {
-			if(book.getAuthor()[i] != null) { test += (book.getAuthor()[i].toString()); }
+		String title = "A title";
+		List <Author> author = new LinkedList<>();
+		Publisher publisher = new Publisher (1, "nome");
+		author.add(new Author(1,"name","lastName"));
+		BigDecimal price = new BigDecimal("12");
+		Book book = new Book(1, title, author, price,publisher);
+		String ret="";
+		ret += ( "Book Id: " + book.getId() + "\nTitle: " + book.getTitle() + "\nPrice: " + book.getPrice() +"\nAuthors:"); 
+		for(Author authorx : book.getAuthor()) {
+			ret += authorx.toString();
+		}
+		ret += "\nCategories: \n" ;
+		for(int i = 0 ; i<book.getCategories().length ; i++) {
+			if(book.getCategories()[i] != null) { ret += book.getCategories()[i].toString()+"\n"; }
 			else { break; }
 		}
-		test +=  "\n"+book.getPublisher().toString() ;
-		assertEquals(test , book.toString());
+		ret +=  "\n"+publisher.toString() ;
+		assertEquals(ret , book.toString());
 	}
 	
 	

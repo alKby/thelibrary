@@ -36,7 +36,6 @@ public class Book implements Serializable , Comparable<Book>{
 		setPublisher(publisher);
 	}
 	
-	
 	public SortedSet<BookCategory> getCategories() {
 		return categories;
 	}
@@ -80,7 +79,6 @@ public class Book implements Serializable , Comparable<Book>{
 		else {throw new IllegalArgumentException(); }
 	}
 	
-	//addAuthor == setAuthor!!!
 	public void addAuthor(Author author) {
 		if (author != null) authors.add(author);
 		else System.out.println("Autore inserito non valido!");
@@ -113,7 +111,6 @@ public class Book implements Serializable , Comparable<Book>{
 			this.publisher=publisher;
 		}
 	}
-	
 	
 	public void setPublisher(Publisher publisher) {
 		if(publisher != null) { this.publisher = publisher; }
@@ -155,7 +152,6 @@ public class Book implements Serializable , Comparable<Book>{
 		this.categories.add(category);
 	}
 
-	
 	@Override
 	public String toString() {
 		String ret="";

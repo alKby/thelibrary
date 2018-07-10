@@ -12,6 +12,9 @@ public class Library {
 	static BookTitleComparator btc = new BookTitleComparator();
 	static BookIsbnComparator bic = new BookIsbnComparator();
 	static Library lib = new Library();
+	static Map<String , Collection<Book>> map = new HashMap<>();
+	static Map<Author , Collection<Book>> map2 = new HashMap<>();
+	static Map<String , Book> map3 = new HashMap<>();
 	public Library() {
 	}
 	
@@ -181,68 +184,32 @@ public class Library {
 	}
 
 	public  void addBook(Book book) {
-		
-		
 		books.add(book);
+		Collection <Book> b = new HashSet<>();
+		map3.put(book.getISBN(), book);
 		
-		
-		
-		//log.debug("\nAdding book with:\ntitle = {}\nid = {}",book.getTitle() , book.getId() );
-		/*Book[] copy;
-		if(books.length <= 0) {
-			books = new Book [1];
-			books[0] = book;
-		}else{
-			if(books[books.length-1] != null ) {
-				copy = new Book[books.length+1];
-				for(int i =0 ; i<books.length;i++) {
-					copy[i] = books[i];
-				}
-				copy[copy.length-1] = book;
-				books = new Book [copy.length];
-				for(int i =0 ; i<books.length;i++) {
-					books[i] = copy[i];
-				}
-				
+		if(map.containsKey(book.getTitle())) {
+			for(Book x : books) {
+				b.add(x);
 			}
-		}*/
-		
+			b.add(book);
+		map.put(book.getTitle(), b);
+		}
+		b.clear();
+		for(Author a : book.getAuthor()) {
+		if(map2.containsKey(a)) {
+			for(Book x : books) {
+				b.add(x);
+			}
+			b.add(book);
+		map2.put(a , b);
+		}
+		}
 	}
+	
 
 	public  void removeBook(Book book) {
-		
 		books.remove(book);
-		/*
-		boolean removed = false;
-		Book[] copy = null;
-		for(int i = 0 ; i < books.length; i++) {
-			if(book.equals(books[i])) {
-				books[i] = null;
-				System.out.println("Libro rimosso con successo!");
-				removed = true;
-				
-				if(books.length-1 > i ) {
-					if(books[i+1]!= null) {
-						for(int c = i ; c<books.length-1;c++) {
-							books[c] = books[c+1];
-						}
-					}
-				}
-				copy = new Book[(books.length-1)];
-				for(int j =0; j< copy.length;j++) {
-					copy[j] = books[j];
-				}
-				books = new Book[copy.length];
-				for(int j =0; j< copy.length;j++) {
-					books[j] = copy[j];
-				}
-				break;
-			}
-		}
-		if(!removed) {
-			System.out.println("Not Found!");
-		}
-		*/
 	}
 
 	public   Collection <Book> searchBooksById(int id) {
@@ -257,14 +224,17 @@ public class Library {
 	}
 	
 	public   Collection <Book> searchBooksByTitle(String title) {
-		Collection <Book> res = new LinkedList <>();
-		for(Book b : books) {
-			if(title.equals(b.getTitle())) {
-				res.add(b);
-			}
-		}
-		return res;
+		return map.get(title);
 	}
+	
+	public   Collection <Book> searchBooksByAuthor(Author author) {
+		return map2.get(author);
+	}
+	
+	public   Collection <Book> searchBooksByAuthor(String isbn) {
+		return map.get(isbn);
+	}
+	
 	
 	public   Collection <Book> searchBooksByAuthor(List <Author> author) {
 		Collection <Book> res = new LinkedList <>();
@@ -275,7 +245,7 @@ public class Library {
 		}
 		return res;
 	}
-	
+
 	public String toString() {
 		String srt = "\n------------------------------------\n";
 		for(Book b : books) {
@@ -283,5 +253,4 @@ public class Library {
 		}
 		return srt;
 	}
-		
 }

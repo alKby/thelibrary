@@ -16,8 +16,7 @@ public class Book implements Serializable , Comparable<Book>{
 	private BigDecimal price;
 	private List <Author> authors = new LinkedList<>();
 	private Publisher publisher;
-	private BookCategory[] categories = new BookCategory[0];
-
+	private SortedSet <BookCategory> categories = new TreeSet<>();
 	public Book(int id , String title , List <Author> author ){
 		setTitle(title);
 		addAuthors(author);
@@ -38,7 +37,7 @@ public class Book implements Serializable , Comparable<Book>{
 	}
 	
 	
-	public BookCategory[] getCategories() {
+	public SortedSet<BookCategory> getCategories() {
 		return categories;
 	}
 	
@@ -126,11 +125,9 @@ public class Book implements Serializable , Comparable<Book>{
 		else { throw new IllegalArgumentException(); }
 	}
 	
-	public void setCategories(BookCategory[] categories) {
-		this.categories = new BookCategory[0];
-		for(int i = 0 ; i < categories.length ; i++) {
-			this.addCategory(categories[i]);
-		}
+	public void setCategories(SortedSet<BookCategory> categories) {
+		this.categories.clear();
+		this.categories.addAll(categories);
 	}
 	
 	public boolean hasAuthor(Author author) {
@@ -155,18 +152,7 @@ public class Book implements Serializable , Comparable<Book>{
 	}
 	
 	public void addCategory(BookCategory category) {
-		BookCategory[] bc = new BookCategory[this.categories.length+1];
-		if(category == null) {
-			throw new IllegalArgumentException();
-		}else {
-			for(int i = 0 ; i<this.categories.length; i++) {
-				if(this.categories[i] == category)
-					return;
-				bc[i] = this.categories[i];
-			}
-			bc[bc.length-1] = category;
-			this.categories = bc;
-		}
+		this.categories.add(category);
 	}
 
 	
@@ -178,9 +164,8 @@ public class Book implements Serializable , Comparable<Book>{
 			ret += author.toString();
 		}
 		ret += "\nCategories: \n" ;
-		for(int i = 0 ; i<categories.length ; i++) {
-			if(categories[i] != null) { ret += categories[i].toString()+"\n"; }
-			else { break; }
+		for(BookCategory cat : categories) {
+			ret += cat.toString()+"\n"; 
 		}
 		ret +=  "\n"+publisher.toString() ;
 		return ret;

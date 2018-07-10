@@ -1,9 +1,8 @@
 package com.benfante.javacourse.thelibrary.core.model;
+//import java.lang.reflect.Array;
 import java.util.*;
 import static org.junit.Assert.*;
 import java.math.*;
-//import java.lang.reflect.Array;
-import java.util.Arrays;
 
 //import org.junit.Before;
 import org.junit.Test;
@@ -104,12 +103,12 @@ public class BookTest {
 		author.add(new Author(1,"name","lastName"));
 		BigDecimal price = new BigDecimal("12");
 		Book book = new Book(1, title, author, price,publisher);
-		BookCategory[] bc = new BookCategory[2];
-		bc[0] = BookCategory.ARTS_AND_POTHOGRAPY;
-		bc[1] = BookCategory.COMPUTERS_AND_TECNOLOGY;
-		BookCategory[] bc2 = bc;
+		SortedSet<BookCategory> bc = new TreeSet<>();
+		bc.add( BookCategory.ARTS_AND_POTHOGRAPY);
+		bc.add(BookCategory.COMPUTERS_AND_TECNOLOGY);
+		SortedSet<BookCategory> bc2 = bc;
 		book.setCategories(bc);
-		assertTrue(Arrays.equals(book.getCategories() , bc2));
+		assertEquals(book.getCategories() , bc2);
 	}
 	
 	@Test
@@ -123,7 +122,7 @@ public class BookTest {
 		BookCategory bc;
 		bc = BookCategory.ARTS_AND_POTHOGRAPY;
 		book.addCategory(bc);
-		BookCategory  gc= book.getCategories()[0];
+		BookCategory  gc= book.getCategories().first();
 		assertTrue(bc.equals(gc));
 		bc = BookCategory.COMPUTERS_AND_TECNOLOGY;
 		assertFalse(bc.equals(gc));
@@ -137,15 +136,17 @@ public class BookTest {
 		author.add(new Author(1,"name","lastName"));
 		BigDecimal price = new BigDecimal("12");
 		Book book = new Book(1, title, author, price,publisher);
-		BookCategory bc[] = new BookCategory[2];
-		bc[0] = BookCategory.ARTS_AND_POTHOGRAPY;
-		bc[1] = BookCategory.COMPUTERS_AND_TECNOLOGY;
-		BookCategory[] bc2 = bc;
+		SortedSet<BookCategory> bc = new TreeSet<>();
+		bc.add( BookCategory.ARTS_AND_POTHOGRAPY);
+		bc.add(BookCategory.COMPUTERS_AND_TECNOLOGY);
+		SortedSet<BookCategory> bc2 = bc;
 		book.setCategories(bc);
-		BookCategory[] bc3 = book.getCategories();
-		bc2[1] = BookCategory.HYSTORY;
-		assertEquals(Arrays.equals(bc3 , book.getCategories()) , true);
-		assertEquals(Arrays.equals(book.getCategories() , bc2) , false);
+		SortedSet<BookCategory> bc3 = new TreeSet<>();
+		bc2.add(BookCategory.HYSTORY);
+		bc3.add(BookCategory.ARTS_AND_POTHOGRAPY );
+		bc3.add(BookCategory.COMPUTERS_AND_TECNOLOGY);
+		assertEquals(bc3 , book.getCategories());
+		assertNotEquals(book.getCategories() , bc2);
 	}
 	
 	@Test
@@ -162,9 +163,8 @@ public class BookTest {
 			ret += authorx.toString();
 		}
 		ret += "\nCategories: \n" ;
-		for(int i = 0 ; i<book.getCategories().length ; i++) {
-			if(book.getCategories()[i] != null) { ret += book.getCategories()[i].toString()+"\n"; }
-			else { break; }
+		for(BookCategory cat : book.getCategories()) {
+			ret += cat.toString()+"\n"; 
 		}
 		ret +=  "\n"+publisher.toString() ;
 		assertEquals(ret , book.toString());
